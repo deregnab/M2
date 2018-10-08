@@ -1,0 +1,17 @@
+Ce que je sais
+Ce que j'ai
+Ce que je suis
+
+
+rendre illisible à ceux qui n'ont pas le droit de lire
+
+systeme cryptographique : prend 2 données et en renvoie 1 (msg + clef -> chiffré) RSA AES 
+
+propriétés attendues : chiffré + clef + qqch -> msg
+		       mais ça doit pas être trivial sans la clef
+
+signer une clé : écrire un truc avec ma clé privé et le partager
+
+clef privée : Clef complete
+clef public : moitié de la clé permettant de chiffrer
+Certificat : 

@@ -1,0 +1,58 @@
+dd if=/dev/random bs=1 count=1 of=random.byte (on pense que c'est aléatoire mais pas tant que ça)
+hexdump -v -e '/1 "%02x"' < random.byte
+
+
+dd if=/dev/urandom bs=1 count=1 of=random.byte (pseudo aléatoire)
+hexdump -v -e '/1 "%02x"' < random.byte
+
+echo -n "Hello World 3456" >clair.txt (le echo fait pile 16 octets)
+openssl enc -aes-256-ecb -nopad -in clair.txt -out clair.crypt -K $(hexdump -v -e '/1 "%02x"' <key.bytes)
+
+openssl enc -aes-256-ecb -d -nopad -in clair.crypt -K $(hexdump -v -e '/1 "%02x"' <key.bytes)
+
+cat clair.txt clair.txt >clair2.txt
+
+
+openssl enc -aes-256-ecb -nopad -in clair2.txt -out clair2.crypt -K $(hexdump -v -e '/1 "%02x"' <key.bytes)
+
+convert -depth 32 Univ-lille-logo.png Univ-lille-logo.png (autre format)
+
+openssl enc -aes-256-ecb -nopad -in Univ-lille-logo.rgba -out logo_crypt.rgba -K $(hexdump -v -e '/1 "%02x"' <key.bytes)
+
+convert -depth 32 -size "250x120" logo_crypt.rgba logo_crypt.png
+
+
+dd if=/dev/urandom bs=1 count=16 of=iv.bytes
+openssl enc -aes-256-cbc -in Univ-lille-logo.rgba -out logo_crypt_iv.rgba -K (hexdum -v -e '/1 "%02x"'<key.bytes) -iv $(hexdump -v -e '/1 "%02x"'<iv.bytes)
+
+convert -depth 32 -size "250x120" logo_crypt.rgba logo_crypt.png
+
+openssl aes-256-cbc -P -pass pass:test
+openssl aes-256-cbc -P -pass pass:test -S 1234567812345678
+
+openssl env -aes-256-cbc -in clair.txt -out clair.crypt2
+hexdump -C clair.crypt2
+
+
+asymetrique
+openssl genrsa 2048 (8192)
+
+openssl genrsa 2048 >private.pem
+(apres avoir enlevé le header private)
+base64 -d private.pem |hexdump -C
+
+rsa -text -noout -in private.pem
+
+genrsa -aes256 -out private_key_protected.pem
+
+echo "Hello RSA" > clair_rsa.txt
+
+openssl rsautl -encrypt -inkey private.pem -in clair_rsa.txt -out clair_rsa.crypt
+
+openssl rsautl -encrypt -inkey private_protected.pem -in clair_rsa.txt -out clair_rsa.crypt
+
+openssl rsautl -decrypt -inkey private_protected.pem -in clair_rsa.crypt
+
+openssl rsa -pubout -in private.pem -out public.pem
+
+openssl rsa -text -pubinc public.pem

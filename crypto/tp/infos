@@ -1,0 +1,8 @@
+proof of concept à réaliser
+
+start : ce que je dois faire pour lancer le truc
+add : ajouter nom = numéro de carte 
+get : récupérer tous les cartes associées à un nom
+init : prepare tout ce qu'il faut pour start
+peut être séparé en 4 fichiers
+EN BASH

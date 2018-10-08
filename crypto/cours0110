@@ -1,0 +1,43 @@
+cours
+
+Hachage cryptographique -> c'est chiant à calculer -> donc c'est chiant à forcer -> donc c'est plus sécurisé
+
+Il n'y a pas de bonne manière de faire du hachage -> on melange on melange on secoue on secoue et on prie pour que ça soit bon
+
+Si qqun vous file une fausse clef ben c'est quand meme la merde, il faut s'assurer que ce soit la bonne clef du coup que faire dans un environement numérique(c'est pas trivial)
+
+Navigateur prévienait quand on essaie d'injecter une fausse clef -> sauf que ça suffisait pas donc maintenant on bloque l'accès tant que l'utilisateur ne donne pas la clef du monsieur qui veut faire des carabistouilles
+
+Une signature est utilisé pour signer un certificat (nom, clé publique)
+
+La sécurité de ce style part de 2 principes : que l'autre ne se soit pas fait piquer sa clef
+que j'utilise la bonne clef
+
+Partir du principe que il m'a volé il va en prison c'est peut être pas le mieux
+
+On analyse le problème 
+
+vol de carte bleue pas grave en plus les assurances tentent de vous douiller en vous faisant admettre que vous êtes en tord 
+Vol de fichier de carte bleue c'est un peu plus génant parce que c'est des milions de cartes
+
+3d secur pour securiser mais ca passe pas avec les sites (en moyenne une pme qui passait sur 3dsecur perdait 30% de ses clients donc elle revient à l'original)
+Ca passe pas car toutes les banques utilisent un systeme different donc il faut utiliser le service de la banque et les clients ne comprennaient pas pourquoi on devait passer par le site de la banque et pas le site marchand 
+
+Condition pour utiliser l'ancien systeme environnement hyper spécialisé, serveur dédié qui ne fait que ça, ne pas stocker les codes en clair
+
+on veut un systeme qui continue de fonctionner si on pirate une personne physique (il faut pirater 2 personnes physique pour le casser)
+
+
+
+Quel est le numéro de l'emprunte banquaire chiffrée ?
+Comment on crée les clefs
+voila pourquoi la clé n'est pas sur le disque dur
+voila pourquoi je ne crains pas de me faire pirater
+
+
+On crypte plusieurs fois, ma clef est stockée sur le serveur et est cryptée pas la cle d'un autre utilisateur qui est stockée sur une autre machine physique
+
+Pour decrypter on doit obtenir la clef privée de l'utilisateur qui est stockée sur la machine qui n'est pas le serveur et l'utiliser pour decrypter la clé présente sur le serveur qui est utilise pour dechiffre le fichier
+
+
+Ou on se fait chier pour rien Ma cle est chiffrée par une clef générée par une passphrase aléatoire de stockée sur une machine physique qui est elle meme chiffrée par la clé d'un utilisateur

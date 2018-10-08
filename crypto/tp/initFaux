@@ -1,0 +1,19 @@
+#!/bin/bash
+
+lines=$(wc -l < $1)
+echo $lines
+awk '{x[++xc] = $0}END{for(i = 1; i <= xc/2; i++) print x[i]}' $1 >p1
+if [ $(($lines%2)) -eq 0 ]
+then
+	#echo oui
+	awk '{x[++xc] = $0}END{for(i = 1+xc/2; i <= xc; i++) print x[i]}' $1 >p2
+else
+	#echo non
+	awk '{x[++xc] = $0}END{for(i = 1+xc/2; i <= xc-1; i++) print x[i]}' $1 >p2
+fi
+
+
+openssl enc -aes-256-cbc -in p1 -out crypt
+
+openssl enc -aes-256-cbc -in p2 -out crypt2
+
