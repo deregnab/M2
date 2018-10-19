@@ -1,0 +1,11 @@
+Etape 1 : 
+	Deux utilisateurs A et B possédant chacun une mot de passe (passphrase) on fabrique une clé à partir des passphrases des 
+2, je chiffre le passphrase de A avec la passphrase de B et j'obtiens une clé qui me sert à chiffrer mon fichier
+
+	Pas de fichier clair contenant les données, toutes les infos en clair sont placées dans des variables.
+
+	Je dois néanmoins conserver le  salt pour utiliser cette méthode au moment du déchiffrage
+
+	Par conséquent je scinde le salt que je chiffre avec la passphrase de A et la passphrase de B respectivement
+
+	Je change le salt à chaque chiffrage (add) -
