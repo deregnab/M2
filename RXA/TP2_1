@@ -1,0 +1,114 @@
+# Commutation
+## 1
+
+> non
+
+Dynamic Address Count:                 3
+Secure Address Count:                  0
+Static Address (User-defined) Count:   0
+System Self Address Count:             39
+Total MAC addresses:                   42
+Maximum MAC addresses:                 8192
+Non-static Address Table:
+Destination Address  Address Type  VLAN  Destination Port
+-------------------  ------------  ----  --------------------
+30b5.c204.e5fe       Dynamic          1  FastEthernet0/5
+30b5.c205.0d7e       Dynamic          1  FastEthernet0/1
+9890.96bb.8e3b       Dynamic          1  FastEthernet0/3
+
+> tout le monde voient arriver les packets car la destination est injoignable
+
+Dynamic Address Count:                 2
+Secure Address Count:                  0
+Static Address (User-defined) Count:   0
+System Self Address Count:             39
+Total MAC addresses:                   41
+Maximum MAC addresses:                 8192
+Non-static Address Table:
+Destination Address  Address Type  VLAN  Destination Port
+-------------------  ------------  ----  --------------------
+30b5.c204.e5fe       Dynamic          1  FastEthernet0/5
+30b5.c205.0d7e       Dynamic          1  FastEthernet0/1
+
+## 2
+
+> C : 30:b5:c2:05:0d:7e
+
+Dynamic Address Count:                 2
+Secure Address Count:                  0
+Static Address (User-defined) Count:   0
+System Self Address Count:             39
+Total MAC addresses:                   41
+Maximum MAC addresses:                 8192
+Non-static Address Table:
+Destination Address  Address Type  VLAN  Destination Port
+-------------------  ------------  ----  --------------------
+30b5.c204.e5fe       Dynamic          1  FastEthernet0/5
+9890.96bb.8e3b       Dynamic          1  FastEthernet0/1
+
+> 2 entrées car 2 addresses mac différente
+> C3500XL-C3H2S-M
+
+Dynamic Address Count:                 4
+Secure Address Count:                  0
+Static Address (User-defined) Count:   0
+System Self Address Count:             39
+Total MAC addresses:                   43
+Maximum MAC addresses:                 8192
+Non-static Address Table:
+Destination Address  Address Type  VLAN  Destination Port
+-------------------  ------------  ----  --------------------
+000d.2860.9b03       Dynamic          1  FastEthernet0/7
+30b5.c204.e5fe       Dynamic          1  FastEthernet0/5
+30b5.c205.0d7e       Dynamic          1  FastEthernet0/7
+9890.96bb.8e3b       Dynamic          1  FastEthernet0/3
+
+> 2 addresses mac sur le même port
+# 2 Sécurisation des ports
+
+## 1
+interface FastEthernet 0/5
+port security max-mac-count 1
+Dynamic Address Count:                 2
+Secure Address Count:                  1
+Static Address (User-defined) Count:   0
+System Self Address Count:             39
+Total MAC addresses:                   42
+Maximum MAC addresses:                 8192
+Non-static Address Table:
+Destination Address  Address Type  VLAN  Destination Port
+-------------------  ------------  ----  --------------------
+30b5.c205.0d7e       Dynamic          1  FastEthernet0/1
+9890.96bb.8e3b       Dynamic          1  FastEthernet0/3
+30b5.c204.e5fe       Secure           1  FastEthernet0/5
+
+PORT_SECURITY-2-SECURITYREJECT: Security violation occurred on module 0 port 5 cause
+> ça ping pu l'addresse mac est limité à l'usage sur le port 5 uniquement
+
+## 2
+
+> le port a une addresse mac specifique
+> le mode sticky empeche la modification de l'addresse mac d'un autre ordinateur
+
+clear mac-address-table secure
+
+# 3 Boucles de commutation
+
+## 1
+> ping infini
+
+## 2
+> multicast
+
+## 3
+>
+Topic / Item   Count   Rate (ms)     Percent   Burst rate    Burst start
+-----------------------------------------------------------------------------
+Destination IPv4 Addresses
+ 192.168.3.255    380408  0,5903     98,46%    102,4700      1,860
+
+> non ça le limite juste
+ 192.168.3.255  435744   102,4538   100,00%    102,4900      2,740
+
+## 4
+> il limite les performances maximun du réseau

@@ -1,0 +1,93 @@
+#4 Bridge Linux
+> B
+sudo ip link set up enp2s0
+sudo ip addr add 192.168.1.2/24 dev enp2s0
+sudo ip route add 192.168.1.1 dev enp2s0
+
+sudo brctl addbr B
+sudo ip link set up B
+sudo brctl addif B enp2s0
+
+#5 Arbre recouvrant
+
+## 1
+S2
+## 2
+hello time : 2.00s
+## 3
+racine 00:07:cb:6c:9d:c7
+## 4
+broadcast
+oui car broadcast
+
+# 5.1 Choix du pont racine
+## 1 et 2
+Tous les commutateurs échangent des informations relatives au choix du commutateur racine et à la configuration ultérieure du réseau.
+Les BPDU (Bridge Protocol Data Units) diffusent cette information.
+Chaque commutateur compare les paramètres du BPDU qu'il envoie à un voisin avec les paramètres du BPDU qu'il reçoit de ce voisin.
+Dans le processus de sélection de la racine STP, moins c'est mieux.
+Si le commutateur A annonce un ID racine dont le numéro est inférieur à celui de l'ID racine annoncé par le commutateur B, l'information du commutateur A est meilleure.
+Le commutateur B arrête alors l'annonce de son ID racine et accepte celui du commutateur A.
+
+## 3
+on diminue les octets de poids fort qui symbolise par la priorité
+
+# 5.2 Choix des ports racines
+election du pont root
+- blocking
+- listeniging 15s
+- learning 15s
+- forwarding
+choix des ports root
+choix des ports designés
+2s de hello time multiplier par le nombre ce saut
+
+#7 Vlan
+en
+configure terminal
+interface FastEthernet 0/1
+switchport access vlan 2
+
+## 1
+A <--> B
+C <--> D
+## 2
+show mac-address-table
+Dynamic Address Count:                 4
+Secure Address Count:                  0
+Static Address (User-defined) Count:   0
+System Self Address Count:             39
+Total MAC addresses:                   43
+Maximum MAC addresses:                 8192
+Non-static Address Table:
+Destination Address  Address Type  VLAN  Destination Port
+-------------------  ------------  ----  --------------------
+30b5.c204.b5a3       Dynamic          2  FastEthernet0/2
+30b5.c204.e5fe       Dynamic          3  FastEthernet0/3
+30b5.c205.0d7e       Dynamic          2  FastEthernet0/1
+30b5.c205.2e0a       Dynamic          3  FastEthernet0/4
+faire plusieurs lan avec un seul switch
+## 3
+on met deux câbles du sw1 au sw2 et on règle les vlan
+
+#8 Trunk
+## 1
+## 2
+en
+configure terminal
+interface FastEthernet0/11
+switchport trunk encapsulation dot1q
+## 3
+12bits -> 4094 (4096-2)
+## 4
+bug
+## 5
+pu d'encapsulation
+non
+## 6
+la sonde ne capte pas
+Non
+lors de la déconnexion le trunk est vide, ceci fause le resseau
+## 7
+il permet d'étendre le trunk automatiquement en fonction de ses voisins. comme il se base sur ses voisins ce Protocole n'est pas fiable.
+#9
